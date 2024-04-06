@@ -11,10 +11,77 @@ class LinkedList{
     this.head = null;
     this.tail = null;
   }
+
+  isEmpty()
+  {
+    if(head == null)
+      return true;
+    return false;
+  }
+
+  pushFront(val)
+  {
+    if(this.isEmpty())
+      head = new Node(val);
+    else
+    {
+      tNode = new Node(val);
+      tNode.next = head;
+      head = tNode;
+    }
+  }
+
+  pushBack(val)
+  {
+    if(this.isEmpty())
+      head = new Node(val);
+    else if(tail == null)
+      tail = new Node(val);
+    else
+    {
+      this.tail.next = new Node(val);
+      tail = tail.next;
+    }
+  }
+
+  pushSort(val){
+    if(this.isEmpty() || this.head.val.gt(val)) // if isEmpty is T or head value is greater than val
+    {
+      this.pushFront(val);
+    }
+    else if(tail == null || this.tail.val.lt(val)) // if list size = 1 or tail value is less than val
+    {
+      this.pushBack(val)
+    }
+    else 
+    {
+      let prev = head;
+      let curr = prev.next;
+
+      while(curr !== null && curr.val.lt(val)) // current node is less than val
+      {
+        prev = curr;
+        curr = curr.next;
+      }
+
+      newNode = new Node(val);
+      newNode.next = prev.next;
+      prev.next = newNode;
+    }
+  }
 }
 
 
 class Species {
+    /**
+     * Initializes Species object
+     * @param {string} name 
+     * @param {string} group 
+     * @param {string} status 
+     * @param {string, int} lastSeen 
+     * @param {string} imgUrl 
+     * @param {string} imgCredit 
+     */
     constructor(name, group, status, lastSeen, imgUrl, imgCredit)
     {
       this.name = name;
@@ -25,18 +92,28 @@ class Species {
       this.imgCredit = imgCredit;
     }
   
-    /*
-     - Returns 0 if names are equal
-     - Returns 1 if object calling function is greater than param alphabetically
-     - Returns -1 if object calling function is less than param alphabetically
-    */
-    comp (name){
-      if(this.name == name)
-        return 0;
-      if(this.name > name)
-        return 1;
-      if(this.name < name)
-        return -1;
+    /**
+     * Greater Than Operator : checks if this object is greater than passed Specie
+     * @param {Species} speciesObj
+     * @returns true if this.name is greater than speciesObj.name
+     */
+    gt(speciesObj)
+    {
+      if(this.name > speciesObj.name)
+        return true;
+      return false;
+    }
+
+    /**
+     * Less Than Operator : checks if this object is less than passed Specie
+     * @param {*} speciesObj 
+     * @returns true if this.name is less than speciesObj.name
+     */
+    lt(speciesObj)
+    {
+      if(this.name < speciesObj.name)
+        return true;
+      return false;
     }
   }
   
