@@ -12,6 +12,10 @@ class LinkedList{
     this.tail = null;
   }
 
+  /**
+   * Checks if this list is empty
+   * @returns true if list is empty
+   */
   isEmpty()
   {
     if(head == null)
@@ -19,6 +23,10 @@ class LinkedList{
     return false;
   }
 
+  /**
+   * Adds node with value of 'val' to front of list
+   * @param {Species} val 
+   */
   pushFront(val)
   {
     if(this.isEmpty())
@@ -31,6 +39,10 @@ class LinkedList{
     }
   }
 
+  /**
+   * Adds node with value of 'val' to end of list
+   * @param {Species} val 
+   */
   pushBack(val)
   {
     if(this.isEmpty())
@@ -44,6 +56,10 @@ class LinkedList{
     }
   }
 
+  /**
+   * inserts val into sorted list in ascending order
+   * @param {Species} val 
+   */
   pushSort(val){
     if(this.isEmpty() || this.head.val.gt(val)) // if isEmpty is T or head value is greater than val
     {
@@ -130,7 +146,6 @@ class Species {
     xhr.onload = function () {
       if (xhr.status === 200){
         const animals = xhr.responseText.split('\n');
-        console.log(animals[0]);
     
         for(let i = 0; i < animals.length; i++){
           // input animal data into species class
