@@ -138,11 +138,12 @@ class LinkedList{
     {
       let prev = this.head;
 
-      while(prev.next != this.tail)
+      while(prev.next.next != null && prev.next.val != this.tail.val)
         {
           prev = prev.next;
         }
-      prev.next = null;
+      if(prev != null)
+        prev.next = null;
       this.tail = prev;
     }
   }
