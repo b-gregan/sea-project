@@ -2,9 +2,10 @@
 const animalCSV = [
   "Golden Toad,amphibian,Extinct,1989,https://www.thoughtco.com/thmb/r1r8Z58cMEjAAXyPIZwg_DpMohw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GoldenToad-0a12a607fc20498598ec8e680d925841.jpg,Charles H. Smith - U.S. Fish and Wildlife Service / Wikimedia Commons / Public Domain",
     "Yunnan Lake Newt,amphibian,Extinct,1979,https://www.thoughtco.com/thmb/1k0A7vkLnIbjWq2T2ESKyFZP2kc=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/yunnanlakenewtWC-56a254675f9b58b7d0c91c7a.JPG,Wikimedia Commons",
-  "Southern Gastric-Brooding Frog,amphibian,Extinct,1983,https://embryo.asu.edu/sites/default/files/OImageGBFrogAG.jpeg,Anna Guerrero: Southern Gastric Brooding Frog-Image. Embryo Project Encyclopedia ( 2017-02-06 ). ISSN: 1940-5030 https://keep.lib.asu.edu/items/175289", "Calilegua’s Marsupial Frog,amphibian,Endangered,1996,https://images.ctfassets.net/tftu3vbfu92u/dRxDnyc2qyIQTysjsT30g/bf9957d565a4c24b3f2c7a6ac3dc3884/marsfrog.png?q=75&&w=1024&fm=webp,(Photo by Dr. Marcos Vaira)",
+  "Southern Gastric-Brooding Frog,amphibian,Extinct,1983,https://embryo.asu.edu/sites/default/files/OImageGBFrogAG.jpeg,Anna Guerrero: Southern Gastric Brooding Frog-Image. Embryo Project Encyclopedia ( 2017-02-06 ). ISSN: 1940-5030 https://keep.lib.asu.edu/items/175289", 
+  "Calilegua's Marsupial Frog,amphibian,Endangered,1996,https://images.ctfassets.net/tftu3vbfu92u/dRxDnyc2qyIQTysjsT30g/bf9957d565a4c24b3f2c7a6ac3dc3884/marsfrog.png?q=75&&w=1024&fm=webp,(Photo by Dr. Marcos Vaira)",
 "Scarlet Harlequin Toad,amphibian,Endangered,1990,https://cdn.mos.cms.futurecdn.net/V5JyoDnQWRf2ootiWDQmFc-1200-80.jpg.webp,Image credit: Enrique La Marca/Conservation International",
-"La Visite Robber Frog,amphibian,Endangered,1985,https://media-cldnry.s-nbcnews.com/image/upload/t_fit-880w,f_auto,q_auto:best/MSNBC/Components/Slideshows/_production/ss-110112-frogs-haiti/ss-110112-frogs-haiti-09.jpg,globalwildlife.org"
+"La Selle Grassfrog,amphibian,Endangered,1985,https://th.bing.com/th/id/OIP.d7S5IRzzEMHNxjKUSbShrAHaGH?w=227&h=187&c=7&r=0&o=5&dpr=1.1&pid=1.7,Photo by S.Blair Hedges and Conservation International (CI)"
 ];
 
 class Node{
@@ -38,7 +39,10 @@ class LinkedList{
   pushFront(val)
   {
     if(this.isEmpty())
+    {
       this.head = new Node(val);
+      this.tail = this.head;
+    }
     else
     {
       let tNode = new Node(val);
@@ -54,9 +58,10 @@ class LinkedList{
   pushBack(val)
   {
     if(this.isEmpty())
+    {
       this.head = new Node(val);
-    else if(this.tail == null)
-      this.tail = new Node(val);
+      this.tail = this.head;
+    }
     else
     {
       this.tail.next = new Node(val);
@@ -73,7 +78,7 @@ class LinkedList{
     {
       this.pushFront(val);
     }
-    else if(this.tail == null || this.tail.val.lt(val)) // if list size = 1 or tail value is less than val
+    else if(this.tail.val.lt(val)) // if tail value is less than val
     {
       this.pushBack(val)
     }
@@ -144,48 +149,28 @@ class Species {
   let eSpecies = new LinkedList();
   extractData(eSpecies);
 
-const FRESH_PRINCE_URL = "https://cdn.mos.cms.futurecdn.net/V5JyoDnQWRf2ootiWDQmFc-1200-80.jpg.webp";
-const CURB_POSTER_URL = "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL = "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-    "Fresh Prince of Bel Air",
-    "Curb Your Enthusiasm",
-    "East Los High"
-];
-// Your final submission should have much more data than this, and 
-// you should use more than just an array of strings to store it all.
-
-
 // This function adds cards the page to display the data in the array
 function showCards() {
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
     let curr = eSpecies.head;
-    
-    for (let i = 0; i < titles.length; i++) {
-        let title = titles[i];
 
-        // This part of the code doesn't scale very well! After you add your
-        // own data, you'll need to do something totally different here.
-        let imageURL = "";
-        if (i == 0) {
-            imageURL = FRESH_PRINCE_URL;
-        } else if (i == 1) {
-            imageURL = CURB_POSTER_URL;
-        } else if (i == 2) {
-            imageURL = EAST_LOS_HIGH_POSTER_URL;
-        }
+    while(curr != null)
+    {
+      let title = curr.val.name;
+      let imgUrl = curr.val.imgUrl;
+      const liText = ["Group: "+curr.val.group, "Status: "+curr.val.status, "Last Seen: "+curr.val.lastSeen];
 
-        const nextCard = templateCard.cloneNode(true); // Copy the template card
-        editCardContent(nextCard, title, imageURL); // Edit title and image
-        cardContainer.appendChild(nextCard); // Add new card to the container
+      const nextCard = templateCard.cloneNode(true);
+      editCardContent(nextCard, title, imgUrl, liText);
+      cardContainer.appendChild(nextCard);
+      
+      curr = curr.next;
     }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, newTitle, newImageURL, list) {
     card.style.display = "block";
 
     const cardHeader = card.querySelector("h2");
@@ -194,11 +179,15 @@ function editCardContent(card, newTitle, newImageURL) {
     const cardImage = card.querySelector("img");
     cardImage.src = newImageURL;
     cardImage.alt = newTitle + " Poster";
-    
 
-    // You can use console.log to help you debug!
-    // View the output by right clicking on your website,
-    // select "Inspect", then click on the "Console" tab
+    const uList = card.querySelector("ul");
+    for(let i = 0; i < list.length; i++)
+    {
+      const newBullet = document.createElement("li")
+      newBullet.innerHTML = list[i];
+      uList.appendChild(newBullet);
+    }
+
     console.log("new card:", newTitle, "- html: ", card);
 }
 
